@@ -3,11 +3,7 @@ package com.heweiyan.android.watch.test;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WatchViewStub;
-import android.util.Log;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class WatchViewStubActivity extends WearableActivity {
 
@@ -20,20 +16,19 @@ public class WatchViewStubActivity extends WearableActivity {
         setContentView(R.layout.watch_view_stub);
 //        setAmbientEnabled();
 
-
         mContainerView = (WatchViewStub) findViewById(R.id.container);
+        // 因为用的是WatchViewStub，所以需要设置UI绘制监听器，等UI绘制完成后再去获取控件才有用，不然获取到的都是空对象
         mContainerView.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub watchViewStub) {
                 mTextView = (TextView) mContainerView.findViewById(R.id.text);
-                Log.e("efg", "mTextView = " + mTextView);
+
+                mTextView.setText("改变");
             }
         });
 
-        Log.e("abc", "mTextView = " + mTextView);
-
-//        mTextView = (TextView) findViewById(R.id.text);
-//        mClockView = (TextView) findViewById(R.id.clock);
+//        // 这样获取到的对象是空的对象
+//        mTextView = (TextView) mContainerView.findViewById(R.id.text);
     }
 
     @Override
